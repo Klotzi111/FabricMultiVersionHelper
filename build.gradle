@@ -45,9 +45,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.google.code.gson/gson
 	include(implementation('com.google.code.gson:gson:2.9.0'))
 	
-	def GsonUtil = implementation('de.klotzi111.util:GsonUtil:1+') {
-		exclude(group: "de.klotzi111.util")
-	}
+	// for local build
+	//def GsonUtil = implementation('de.klotzi111.util:GsonUtil:1+')
+	def GsonUtil = implementation('com.github.Klotzi111:GsonUtil:main-SNAPSHOT')
 	include(GsonUtil)
 
 	// Junit 5 for testing
