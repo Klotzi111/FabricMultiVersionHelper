@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "fabricmultiversionhelper",
+	"version": "${version}",
+	"name": "FabricMultiVersionHelper",
+	"description": "Library that helps fabric mod developers to create a single mod jar file for multiple Minecraft versions",
+	"authors": [
+		"Klotzi111"
+	],
+	"contributors": [],
+	"contact": {
+		"homepage": "https://github.com/Klotzi111/FabricMultiVersionHelper",
+		"issues": "https://github.com/Klotzi111/FabricMultiVersionHelper/issues",
+		"sources": "https://github.com/Klotzi111/FabricMultiVersionHelper"
+	},
+	"license": "Apache-2.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [],
+		"client": [],
+		"server": []
+	},
+	"mixins": [
+		"fabricmultiversionhelper.mixins.json"
+	],
+	"custom": {
+		"modmenu:api": true,
+		"modmenu": {
+			"badges": [
+				"library"
+			]
+		}
+	},
+	"depends": {
+    	"java": ">=8",
+    	"fabricloader": ">=0.13.0"
+	}
+}

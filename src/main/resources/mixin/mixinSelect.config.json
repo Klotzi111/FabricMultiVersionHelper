@@ -1,0 +1,25 @@
+{
+	"mixinConditions": {
+		"versioned.MixinBaseText_1_14": [
+			{
+				"minecraft": [
+					">=1.14 <1.16"
+				]
+			}
+		],
+		"versioned.MixinMutableText_1_16": [
+			{
+				"minecraft": [
+					">=1.16 <1.19"
+				]
+			}
+		],
+		"versioned.MixinMutableText_1_19": [
+			{
+				"minecraft": [
+					">=1.19"
+				]
+			}
+		]
+	}
+}

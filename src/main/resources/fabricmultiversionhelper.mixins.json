@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "de.klotzi111.fabricmultiversionhelper.impl.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"plugin": "de.klotzi111.fabricmultiversionhelper.impl.mixin.FMVHMixinConfig",
+	"mixins": [],
+	"client": [],
+	"server": [],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
