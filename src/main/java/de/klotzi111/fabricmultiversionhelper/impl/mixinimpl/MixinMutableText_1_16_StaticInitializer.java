@@ -18,13 +18,8 @@ public class MixinMutableText_1_16_StaticInitializer {
 		String CLASS_NAME_MutableText = "net.minecraft.class_5250"; // "net.minecraft.text.MutableText";
 		Class<?> MutableText_class = MappingHelper.mapAndLoadClass(CLASS_NAME_MutableText, MappingHelper.CLASS_MAPPER_FUNCTION);
 
-		String SIGNATURE_MutableText_append = MappingHelper.createSignature("(%s)%s", Text.class, MutableText.class);
-		String REMAPPED_MutableText_append = MappingHelper.mapMethod(MutableText_class.getName(), "append", SIGNATURE_MutableText_append);
-		MutableText_append = MappingHelper.getMethod(MutableText_class, REMAPPED_MutableText_append, SIGNATURE_MutableText_append);
-
-		String SIGNATURE_MutableText_setStyle = MappingHelper.createSignature("(%s)%s", Style.class, MutableText.class);
-		String REMAPPED_MutableText_setStyle = MappingHelper.mapMethod(MutableText_class.getName(), "setStyle", SIGNATURE_MutableText_setStyle);
-		MutableText_setStyle = MappingHelper.getMethod(MutableText_class, REMAPPED_MutableText_setStyle, SIGNATURE_MutableText_setStyle);
+		MutableText_append = MappingHelper.mapAndGetMethod(MutableText_class, "method_10852", MutableText.class, Text.class);
+		MutableText_setStyle = MappingHelper.mapAndGetMethod(MutableText_class, "method_10862", MutableText.class, Style.class);
 	}
 
 }

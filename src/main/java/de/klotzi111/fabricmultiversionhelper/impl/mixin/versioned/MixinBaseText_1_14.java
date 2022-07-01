@@ -28,17 +28,10 @@ public abstract class MixinBaseText_1_14 implements IMutableText {
 		String CLASS_NAME_BaseText = "net.minecraft.class_2554"; // "net.minecraft.text.BaseText";
 		Class<?> BaseText_class = MappingHelper.mapAndLoadClass(CLASS_NAME_BaseText, MappingHelper.CLASS_MAPPER_FUNCTION);
 
-		String SIGNATURE_BaseText_append = MappingHelper.createSignature("(%s)%s", Text.class, Text.class);
-		String REMAPPED_BaseText_append = MappingHelper.mapMethod(BaseText_class.getName(), "append", SIGNATURE_BaseText_append);
-		BaseText_append = MappingHelper.getMethod(BaseText_class, REMAPPED_BaseText_append, SIGNATURE_BaseText_append);
-
-		String SIGNATURE_BaseText_setStyle = MappingHelper.createSignature("(%s)%s", Style.class, Text.class);
-		String REMAPPED_BaseText_setStyle = MappingHelper.mapMethod(BaseText_class.getName(), "setStyle", SIGNATURE_BaseText_setStyle);
-		BaseText_setStyle = MappingHelper.getMethod(BaseText_class, REMAPPED_BaseText_setStyle, SIGNATURE_BaseText_setStyle);
-
-		String SIGNATURE_Text_deepCopy = MappingHelper.createSignature("()%s", Text.class);
-		String REMAPPED_Text_deepCopy = MappingHelper.mapMethod(Text.class.getName(), "deepCopy", SIGNATURE_Text_deepCopy);
-		BaseText_deepCopy = MappingHelper.getMethod(Text.class, REMAPPED_Text_deepCopy, SIGNATURE_Text_deepCopy);
+		// these intermediary names are intentially not intermediary looking because in that mc version the methods have plain names
+		BaseText_append = MappingHelper.mapAndGetMethod(BaseText_class, "append", Text.class, Text.class);
+		BaseText_setStyle = MappingHelper.mapAndGetMethod(BaseText_class, "setStyle", Text.class, Style.class);
+		BaseText_deepCopy = MappingHelper.mapAndGetMethod(Text.class, "deepCopy", Text.class);
 	}
 
 	@Override

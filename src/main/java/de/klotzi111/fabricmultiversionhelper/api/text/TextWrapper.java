@@ -2,6 +2,7 @@ package de.klotzi111.fabricmultiversionhelper.api.text;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 import de.klotzi111.fabricmultiversionhelper.api.mapping.MappingHelper;
@@ -21,21 +22,23 @@ public class TextWrapper {
 	private static final Constructor<?> LiteralTextContent_constructor;
 
 	private static final Constructor<Style> Style_constructor;
+	private static final Method Text_asString;
 
 	static {
 		if (!IS_1_19) {
 			// This weird looking load of the class and the constructor despite both being publicly visible and existing in all versions of minecraft is necessary because this class is a record in mc 1.19 and this causes compile problems with java 8
 			String CLASS_NAME_LiteralTextContent = "net.minecraft.class_2585"; // "net.minecraft.text.LiteralTextContent";
 			Class<?> LiteralTextContent_class = MappingHelper.mapAndLoadClass(CLASS_NAME_LiteralTextContent, MappingHelper.CLASS_MAPPER_FUNCTION);
-			String SIGNATURE_LiteralTextContent_constructor = MappingHelper.createSignature("(%s)V", String.class);
-			LiteralTextContent_constructor = MappingHelper.getConstructor(LiteralTextContent_class, SIGNATURE_LiteralTextContent_constructor);
+			LiteralTextContent_constructor = MappingHelper.getConstructor(LiteralTextContent_class, String.class);
+
+			Text_asString = MappingHelper.mapAndGetMethod(Text.class, "method_10851", String.class);
 		} else {
 			LiteralTextContent_constructor = null;
+			Text_asString = null;
 		}
 
 		if (!MinecraftVersionHelper.isMCVersionAtLeast("1.16")) {
-			String SIGNATURE_Style_constructor = MappingHelper.createSignature("()V");
-			Style_constructor = MappingHelper.getConstructor(Style.class, SIGNATURE_Style_constructor);
+			Style_constructor = MappingHelper.getConstructor(Style.class);
 		} else {
 			Style_constructor = null;
 		}
@@ -73,7 +76,8 @@ public class TextWrapper {
 		if (IS_1_19) {
 			return Text.translatable(key);
 		} else {
-			return (Text) (Object) new TranslatableTextContent(key);
+			// mc versions < 1.16 only have constructor with key and objects
+			return (Text) (Object) new TranslatableTextContent(key, new Object[0]);
 		}
 	}
 
@@ -127,11 +131,17 @@ public class TextWrapper {
 		}
 	}
 
+	// this should return the same as IMutableText#fmvh$asString
 	public static String getAsString(Text text) {
 		if (IS_1_19) {
 			return text.getString();
 		} else {
-			return (String) (Object) text.getContent();
+			try {
+				return (String) Text_asString.invoke(text);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				ErrorHandler.handleReflectionException(e, "Failed to invoke \"%s\"", "Text::asString");
+			}
+			return "";
 		}
 	}
 }

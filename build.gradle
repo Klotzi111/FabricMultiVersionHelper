@@ -5,6 +5,8 @@ plugins {
 
 ext {
 	jdk_version = 8
+	
+	klotzi111_localDeps = "true".equals(System.getenv("klotzi111_localDeps"))
 }
 
 sourceCompatibility = jdk_version
@@ -41,14 +43,12 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	
-	// we neeed gson 2.9.0 (or higher) for GsonUtil
+	// we need gson 2.9.0 (or higher) for GsonUtil
 	// https://mvnrepository.com/artifact/com.google.code.gson/gson
 	include(implementation('com.google.code.gson:gson:2.9.0'))
 	
-	// for local build
-	//def GsonUtil = implementation('de.klotzi111.util:GsonUtil:1+')
-	def GsonUtil = implementation('com.github.Klotzi111:GsonUtil:main-SNAPSHOT')
-	include(GsonUtil)
+	// GsonUtil
+	include(implementation(klotzi111_localDeps ? "de.klotzi111.util:GsonUtil:1+" : "com.github.Klotzi111:GsonUtil:main-SNAPSHOT"))
 
 	// Junit 5 for testing
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
