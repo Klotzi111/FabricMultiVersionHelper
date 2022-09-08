@@ -19,7 +19,6 @@ import de.klotzi111.fabricmultiversionhelper.impl.mixinselect.config.MixinSelect
 import de.klotzi111.fabricmultiversionhelper.impl.mixinselect.config.MixinSelectAlternativeModConditions;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
-import net.fabricmc.loader.impl.util.LoaderUtil;
 
 public class MixinSelectConfig {
 
@@ -43,9 +42,13 @@ public class MixinSelectConfig {
 		return conditions.matches(modsWithVersion, defaultConditions);
 	}
 
+	private static String getClassFileName(String className) {
+		return className.replace('.', '/').concat(".class");
+	}
+
 	private static boolean isMixinClassPresent(String mixinClassName, ClassLoader classLoader) {
 		// can not use Class.forName here even when initialize is false because that triggers the mixin processor in applying the mixins and that loads the target class. But that is too early
-		String fileName = LoaderUtil.getClassFileName(mixinClassName);
+		String fileName = getClassFileName(mixinClassName);
 		URL url = classLoader.getResource(fileName);
 		return url != null;
 	}
